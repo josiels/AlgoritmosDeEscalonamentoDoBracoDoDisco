@@ -10,9 +10,9 @@ public class Arquivo {
 
     private final Disco disco = new Disco();
     private final ArrayList<Integer> listTrajeto = new ArrayList();
-    private final File arquivo = new File("C:\\Users\\pmrn\\Documents\\NetBeansProjects\\AlgoritmosDeEscalonamentoDoBracoDoDisco\\src\\controladores\\disco.txt");
+    //private final File arquivo = new File("C:\\Users\\pmrn\\Documents\\NetBeansProjects\\AlgoritmosDeEscalonamentoDoBracoDoDisco\\src\\controladores\\disco.txt");
 
-    public Disco carregadorDoDisco() {
+    public Disco carregadorDoDisco(File arquivo) {
         try {
             FileReader leitor = new FileReader(arquivo);
             BufferedReader buffer = new BufferedReader(leitor);

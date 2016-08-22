@@ -4,7 +4,9 @@ import controladores.Algoritmos;
 import controladores.Arquivo;
 import controladores.Disco;
 import controladores.MovimentoDoBraco;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,9 +29,10 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        this.disco = arquivo.carregadorDoDisco();
-        this.listaDeTrajeto = disco.getListTrajeto();
+        //this.disco = arquivo.carregadorDoDisco();
+        //this.listaDeTrajeto = disco.getListTrajeto();
         botaoExecutar.setEnabled(false);
+        botaoCarregarDisco.setEnabled(false);
     }
 
     /**
@@ -42,6 +45,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         botaoCarregarDisco = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
@@ -58,9 +62,6 @@ public class Principal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaDisco = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaSSF = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         totalFCFS = new javax.swing.JTextField();
         totalSSF = new javax.swing.JTextField();
@@ -69,17 +70,25 @@ public class Principal extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        botaoCarregarArquivo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaFCFS = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaSSF = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaElev = new javax.swing.JTable();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        painelPrincipal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Escalonador do Braço de Disco");
         setResizable(false);
+
+        jDesktopPane1.setBackground(new java.awt.Color(204, 204, 255));
 
         botaoCarregarDisco.setText("Carregar Processos");
         botaoCarregarDisco.addActionListener(new java.awt.event.ActionListener() {
@@ -128,15 +137,15 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoExecutar)
-                    .addComponent(jLabel15))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(botaoExecutar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -204,23 +213,10 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(posicaoInicialBraco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        tabelaSSF.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Pos Atual", "Prox Pos", "Trajeto"
-            }
-        ));
-        jScrollPane2.setViewportView(tabelaSSF);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Setores percorridos ");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -252,16 +248,17 @@ public class Principal extends javax.swing.JFrame {
         jLabel9.setText("Elev");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("Total");
+        jLabel6.setText("Total de setores percorridos");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(totalFCFS, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,20 +267,17 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(totalSSF, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(totalElev, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(285, 285, 285)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(totalElev, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalFCFS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(totalSSF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,8 +288,30 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
+        botaoCarregarArquivo.setText("Carregar arquivo");
+        botaoCarregarArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCarregarArquivoActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Limpar dados");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("First come First Served");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setText("Short test seek first");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setText("Elevator algorithm");
 
         tabelaFCFS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -307,6 +323,16 @@ public class Principal extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tabelaFCFS);
 
+        tabelaSSF.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Pos Atual", "Prox Pos", "Trajeto"
+            }
+        ));
+        jScrollPane2.setViewportView(tabelaSSF);
+
         tabelaElev.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -317,87 +343,177 @@ public class Principal extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(tabelaElev);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel11.setText("Elevator algorithm");
+        painelPrincipal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        painelPrincipal.setText("Dados estatísticos ");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel12.setText("Short test seek first");
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(painelPrincipal)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(107, 107, 107)
+                                .addComponent(jLabel12)))
+                        .addGap(87, 87, 87)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(painelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jDesktopPane1.setLayer(botaoCarregarDisco, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jSeparator1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(botaoCarregarArquivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jPanel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(botaoCarregarArquivo)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoCarregarDisco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCarregarDisco)
+                    .addComponent(botaoCarregarArquivo)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(botaoCarregarDisco)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(0, 16, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jLabel10)
-                .addGap(71, 71, 71)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addGap(70, 70, 70))
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botaoCarregarDisco)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void totalElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalElevActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalElevActionPerformed
+
+    private void totalSSFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalSSFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalSSFActionPerformed
+
+    private void totalFCFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalFCFSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalFCFSActionPerformed
+
+    private void tamanhoDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanhoDiscoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tamanhoDiscoActionPerformed
+
+    private void botaoExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExecutarActionPerformed
+        DefaultTableModel modelo2 = (DefaultTableModel) tabelaFCFS.getModel();
+        DefaultTableModel modelo3 = (DefaultTableModel) tabelaSSF.getModel();
+        DefaultTableModel modelo4 = (DefaultTableModel) tabelaElev.getModel();
+        botaoCarregarArquivo.setEnabled(true);
+
+        int contadorDeTrajeto = 0;
+
+        this.listaFCFS = algoritmos.algoritmoFirstComeFirstServed(listaDeTrajeto, disco.getPosicaoInicial());
+        for (MovimentoDoBraco m : listaFCFS) {
+            Object[] dadosFCFS = {m.getPosicaoAtual(), m.getProximaPosicao(), m.getTotalTrajeto()};
+            modelo2.addRow(dadosFCFS);
+            contadorDeTrajeto = contadorDeTrajeto + m.getTotalTrajeto();
+        }
+        totalFCFS.setText(contadorDeTrajeto + "");
+        contadorDeTrajeto = 0;
+
+        this.listaElev = algoritmos.algoritmoElevatorAlgorithm(listaDeTrajeto, disco.getPosicaoInicial());
+        for (MovimentoDoBraco m : listaElev) {
+            Object[] dadosElev = {m.getPosicaoAtual(), m.getProximaPosicao(), m.getTotalTrajeto()};
+            modelo4.addRow(dadosElev);
+            contadorDeTrajeto = contadorDeTrajeto + m.getTotalTrajeto();
+        }
+        totalElev.setText(contadorDeTrajeto + "");
+        contadorDeTrajeto = 0;
+        
+        this.listaSSF = algoritmos.algoritmoShortestSeekFirst(listaDeTrajeto, disco.getPosicaoInicial());
+        for (MovimentoDoBraco m : listaSSF) {
+            Object[] dadosSSF = {m.getPosicaoAtual(), m.getProximaPosicao(), m.getTotalTrajeto()};
+            modelo3.addRow(dadosSSF);
+            contadorDeTrajeto = contadorDeTrajeto + m.getTotalTrajeto();
+        }
+        totalSSF.setText(contadorDeTrajeto + "");
+        
+        
+        botaoExecutar.setEnabled(false);
+    }//GEN-LAST:event_botaoExecutarActionPerformed
 
     private void botaoCarregarDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarDiscoActionPerformed
         DefaultTableModel modelo = (DefaultTableModel) tabelaDisco.getModel();
@@ -412,56 +528,41 @@ public class Principal extends javax.swing.JFrame {
         botaoCarregarDisco.setEnabled(false);
     }//GEN-LAST:event_botaoCarregarDiscoActionPerformed
 
-    private void totalFCFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalFCFSActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalFCFSActionPerformed
-
-    private void totalSSFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalSSFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalSSFActionPerformed
-
-    private void totalElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalElevActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalElevActionPerformed
-
-    private void botaoExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExecutarActionPerformed
-        DefaultTableModel modelo2 = (DefaultTableModel) tabelaFCFS.getModel();
-        DefaultTableModel modelo3 = (DefaultTableModel) tabelaSSF.getModel();
-        DefaultTableModel modelo4 = (DefaultTableModel) tabelaElev.getModel();
-
-        int contadorDeTrajeto = 0;
-
-        this.listaFCFS = algoritmos.algoritmoFirstComeFirstServed(listaDeTrajeto, disco.getPosicaoInicial());
-        for (MovimentoDoBraco m : listaFCFS) {
-            Object[] dadosFCFS = {m.getPosicaoAtual(), m.getProximaPosicao(), m.getTotalTrajeto()};
-            modelo2.addRow(dadosFCFS);
-            contadorDeTrajeto = contadorDeTrajeto + m.getTotalTrajeto();
+    private void botaoCarregarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCarregarArquivoActionPerformed
+        JFileChooser fc = new JFileChooser();
+        int res = fc.showOpenDialog(null);
+        if (res == JFileChooser.APPROVE_OPTION) {
+            File arquivoTXT = fc.getSelectedFile();
+            this.disco = arquivo.carregadorDoDisco(arquivoTXT);
+            this.listaDeTrajeto = disco.getListTrajeto();
         }
-        totalFCFS.setText(contadorDeTrajeto + "");
-        contadorDeTrajeto = 0;
-
-        this.listaSSF = algoritmos.algoritmoShortestSeekFirst(listaDeTrajeto, disco.getPosicaoInicial());
-        for (MovimentoDoBraco m : listaSSF) {
-            Object[] dadosSSF = {m.getPosicaoAtual(), m.getProximaPosicao(), m.getTotalTrajeto()};
-            modelo3.addRow(dadosSSF);
-            contadorDeTrajeto = contadorDeTrajeto + m.getTotalTrajeto();
+        if (res == 0) {
+            botaoCarregarArquivo.setEnabled(false);
+            botaoCarregarDisco.setEnabled(true);
         }
-        totalSSF.setText(contadorDeTrajeto + "");
-        contadorDeTrajeto = 0;
-
-        this.listaElev = algoritmos.algoritmoElevatorAlgorithm(listaDeTrajeto, disco.getPosicaoInicial());
-        for (MovimentoDoBraco m : listaElev) {
-            Object[] dadosElev = {m.getPosicaoAtual(), m.getProximaPosicao(), m.getTotalTrajeto()};
-            modelo4.addRow(dadosElev);
-            contadorDeTrajeto = contadorDeTrajeto + m.getTotalTrajeto();
+        if("".equals(tamanhoDisco.getText())){
+            
         }
-        totalElev.setText(contadorDeTrajeto + "");
-        botaoExecutar.setEnabled(false);
-    }//GEN-LAST:event_botaoExecutarActionPerformed
+    }//GEN-LAST:event_botaoCarregarArquivoActionPerformed
 
-    private void tamanhoDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanhoDiscoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tamanhoDiscoActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        esvaziarDados();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void esvaziarDados() {
+        int tamanhoTabela = tabelaElev.getRowCount();
+        totalSSF.setText("");
+        totalElev.setText("");
+        totalFCFS.setText("");
+        tamanhoDisco.setText("");
+        posicaoInicialBraco.setText("");
+        for(int i=0; i<tamanhoTabela; i++){    
+            ((DefaultTableModel) tabelaDisco.getModel()).removeRow(0);
+            ((DefaultTableModel) tabelaElev.getModel()).removeRow(0);
+            ((DefaultTableModel) tabelaFCFS.getModel()).removeRow(0);
+            ((DefaultTableModel) tabelaSSF.getModel()).removeRow(0);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -499,10 +600,12 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoCarregarArquivo;
     private javax.swing.JButton botaoCarregarDisco;
     private javax.swing.JButton botaoExecutar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -520,11 +623,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel painelPrincipal;
     private javax.swing.JTextField posicaoInicialBraco;
     private javax.swing.JTable tabelaDisco;
     private javax.swing.JTable tabelaElev;

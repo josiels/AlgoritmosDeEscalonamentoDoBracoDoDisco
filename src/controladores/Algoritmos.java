@@ -50,20 +50,6 @@ public class Algoritmos {
         return listaMovimento;
     }
 
-    public static void main(String[] args) {
-        ArrayList<Integer> l = new ArrayList();
-        Algoritmos al = new Algoritmos();
-        l.add(4);
-        l.add(29);
-        l.add(1);
-        l.add(5);
-        l.add(25);
-        System.out.println("Atual: " + 30);
-        for (Integer j : al.ordenarListaElevador(l, 30)) {
-            System.out.println("Resultado: " + j);
-        }
-    }
-
     private static ArrayList<Integer> ordenarListaElevador(ArrayList<Integer> listaPercurso, int atual) {
         ArrayList<Integer> listaTemporaria = new ArrayList();
         ArrayList<Integer> listaReordenada = new ArrayList();
