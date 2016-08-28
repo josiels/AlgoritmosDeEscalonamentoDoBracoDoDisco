@@ -30,7 +30,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         //this.disco = arquivo.carregadorDoDisco();
-        //this.listaDeTrajeto = disco.getListTrajeto();
+        this.listaDeTrajeto = disco.getListTrajeto();
         botaoExecutar.setEnabled(false);
         botaoCarregarDisco.setEnabled(false);
     }
